@@ -89,7 +89,7 @@ const [openDropdown, setOpenDropdown] = useState<
 
                 <button
           onClick={handleSearch}
-          className="bg-amber-500 text-white font-semibold rounded-xl px-6 py-3 hover:bg-amber-600 transition w-full"
+          className="bg-green-500 text-white font-semibold rounded-xl px-6 py-3 hover:bg-green-600 transition w-full"
         >
           Rechercher
         </button>
