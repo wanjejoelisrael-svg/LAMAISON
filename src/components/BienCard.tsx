@@ -1,20 +1,20 @@
-import { FaMapMarkerAlt, FaBed, FaShower, FaRulerCombined} from 'react-icons/fa'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination} from 'swiper/modules'
+import React, { useEffect, useState } from 'react'
+import { FaMapMarkerAlt, FaBed, FaShower, FaRulerCombined, FaSwimmingPool, FaCouch, FaUtensils } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
 
 type Props = {
-  id: number;
-  titre: string;
-  prix: number;
-  images: string[];
-  localisation: string;
-  superficie: number;
-  nombrePieces: string; 
-  typeBien: string;
+  id: number
+  titre: string
+  prix: number
+  images: string[]
+  localisation: string
+  superficie: number
+  chambre: string
+  salleDeBain: string
+  piscine: string
+  salon: string
+  cuisine: string
+  typeBien: string
 }
 
 const BienCard: React.FC<Props> = ({
@@ -24,94 +24,135 @@ const BienCard: React.FC<Props> = ({
   images,
   localisation,
   superficie,
-  nombrePieces,
+  chambre,
+  salleDeBain,
+  piscine,
+  salon,
+  cuisine,
   typeBien,
 }) => {
- return (
-    <div className="flex flex-col bg-white border border-gray-200 rounded-xl shadow-md overflow-hidden transition duration-300 hover:shadow-xl hover:scale-[1.015] h-full">
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const items = images.slice(0, 5)
 
-      {/* Carrousel Swiper pour les images */}
-      <div className="relative w-full h-55 sm:h-62.5 md:h-57.5 xl:h-57.5 overflow-hidden group">
-        <Swiper
-          modules={[Navigation, Pagination]}
-          navigation={{
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-          }}
-          pagination={{ clickable: true, dynamicBullets: true }}
-          loop={images.length > 1}
-          slidesPerView={1}
-          autoplay={{ delay: 3000 }}
-          className="w-full h-full"
-        >
-          {images.length > 0 ? (
-            images.map((img, index) => (
-              <SwiperSlide key={index}>
-                <img
-                  src={img}
-                  alt={`${titre} - ${index + 1}`}
-                  className="w-full h-full object-cover" />
-              </SwiperSlide>
-            ))
-          ) : (
-            <SwiperSlide>
-              <div className="w-full h-full flex items-center justify-center bg-gray-300">
-                <span className="text-gray-600 font-semibold">No image available</span>
-              </div>
-            </SwiperSlide>
-          )}
-          <div className="swiper-button-prev group-hover:opacity-100 opacity-70 transition-opacity"></div>
-          <div className="swiper-button-next group-hover:opacity-100 opacity-70 transition-opacity"></div>
-        </Swiper>
-       
+  /* Auto-slide */
+  useEffect(() => {
+    if (items.length <= 1) return
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) =>
+        prev === items.length - 1 ? 0 : prev + 1
+      )
+    }, 10000)
+
+    return () => clearInterval(interval)
+  }, [items.length])
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) =>
+      prev === 0 ? items.length - 1 : prev - 1
+    )
+  }
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) =>
+      prev === items.length - 1 ? 0 : prev + 1
+    )
+  }
+
+  return (
+    <div className="flex flex-col bg-white border rounded-xl shadow-md overflow-hidden hover:shadow-xl transition group h-full">
+
+      {/* IMAGE SLIDER */}
+      <div className="relative h-56 overflow-hidden">
+        {items.length > 0 ? (
+          <>
+            <img
+              src={items[currentIndex]}
+              alt={titre}
+              className="h-full w-full object-cover transition-opacity duration-700"
+            />
+
+            {/* Prev */}
+            <button
+              onClick={prevSlide}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/60 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition"
+            >
+              ‹
+            </button>
+
+            {/* Next */}
+            <button
+              onClick={nextSlide}
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/60 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition"
+            >
+              ›
+            </button>
+
+            {/* Pagination */}
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+              {items.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`h-2 w-2 rounded-full ${index === currentIndex
+                      ? 'bg-amber-500'
+                      : 'bg-white/60'
+                    }`}
+                />
+              ))}
+            </div>
+          </>
+        ) : (
+          <div className="h-full flex items-center justify-center bg-gray-300">
+            <span>Aucune image</span>
+          </div>
+        )}
       </div>
 
-        {/* Contenu textuel */}
+      {/* CONTENU */}
       <div className="p-4 flex flex-col justify-between grow space-y-3">
-        {/* Titre et ville */}
         <div>
-          <h3 className="text-lg font-bold text-gray-800 line-clamp-1">{titre}</h3>
+          <h3 className="text-lg font-bold text-gray-800 line-clamp-1">
+            {titre}
+          </h3>
           <p className="text-gray-500 text-sm flex items-center gap-1 mt-1">
             <FaMapMarkerAlt className="text-green-600" />
             {localisation}
           </p>
         </div>
-   
-        {/* Prix */}
-        <p className="text-green-600 font-extrabold text-base sm:text-lg">
+
+        <p className="text-green-600 font-bold text-lg">
           {prix.toLocaleString()} FCFA
         </p>
 
-        {/* Caractéristiques */}
-        <div className="flex items-center justify-between text-xs sm:text-sm text-gray-600 border-t pt-3">
-          <div className="flex gap-4">
-            <div className="flex items-center gap-1">
-              <FaBed className="text-gray-500" /> {nombrePieces}
-            </div>
-            <div className="flex items-center gap-1">
-              <FaShower className="text-gray-500" /> {typeBien} 
-            </div>
-            <div className="flex items-center gap-1">
-              <FaRulerCombined className="text-gray-500" /> {superficie} m²
-            </div>
+        <div className="text-sm text-gray-600 border-t pt-3">
+          <div className="flex items-center gap-1">
+            <FaBed /> chambre : {chambre}
           </div>
-          {/* <div className="flex items-center gap-2">
-            <div className={`px-2 py-1 rounded-full font-semibold text-xs text-white shadow-md
-              ${projet === 'location' ? 'bg-yellow-400' : 'bg-green-600'}`}
-            >
-              {projet === 'location' ? t('projetTypeOptions.location') : t('projetTypeOptions.achat')}
-            </div>
-            <div className="flex items-center gap-1 text-gray-500">
-              <FaEye />
-              <span>{vues ?? 0}</span>
-            </div>
-          </div> */}
+          <div className="flex items-center gap-2">
+            <FaShower /> salle de bain : {salleDeBain}
+          </div>
+          <div className="flex items-center gap-2">
+            <FaSwimmingPool /> piscine : {piscine}
+          </div>
+          <div className="flex items-center gap-2">
+            <FaCouch /> salon : {salon}
+          </div>
+          <div className="flex items-center gap-2">
+            <FaUtensils /> cuisine : {cuisine}
+          </div>
+          <div className="flex items-center gap-2">
+           <span className="font-medium"> Type </span>: {typeBien}
+          </div>
+          <div className="flex items-center gap-2">
+            <FaRulerCombined /> superficie : {superficie} m²
+          </div>
         </div>
 
-        {/* Bouton Voir plus */}
+
         <Link
           to={`/bien/${id}`}
-          className="mt-4 inline-block w-full text-center bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-300"
+          className="bg-green-600 hover:bg-green-700 text-white text-center py-2 rounded-md text-sm font-medium transition"
         >
           VOIR PLUS
         </Link>
