@@ -25,8 +25,12 @@ const Bien: React.FC = () => {
                         images={a.images}
                         localisation={a.localisation}
                         superficie={a.superficie}
-                        nombrePieces={a.nombrePieces}
-                          typeBien={a.typeBien}
+                        chambre={a.chambre}
+                        salleDeBain={a.salleDeBain}
+                        piscine={a.piscine}
+                        salon={a.salon}
+                        cuisine={a.cuisine}
+                        typeBien={a.typeBien}
                        
                     />
                 ))}

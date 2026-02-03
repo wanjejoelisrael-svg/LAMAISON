@@ -6,6 +6,7 @@ import Inscription from "./pages/Inscription"
 import Connexion from "./pages/Connexion"
 import Contacts from "./pages/Contacts"
 import Bien from "./pages/Bien"
+import BienDetail from "./pages/BienDetail"
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
         <Route path="/connexion" element={<Connexion />} />
         <Route path="/contact" element={<Contacts />} />
         <Route path="/bien" element={<Bien />} />
-
+        <Route path="/bien/:id" element={<BienDetail />} />
         </Route>
       </Routes>
     </>
