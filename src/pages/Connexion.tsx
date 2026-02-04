@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router";
 
 
 // Interface TypeScript pour typer les données du formulaire de connexion
@@ -103,7 +104,7 @@ Se connecter
 <p>
 Pas encore de compte ?{" "}
 <span className="text-amber-500 hover:underline cursor-pointer">
-    <a href="/inscription">S'inscrire</a>
+    <Link to="/inscription">S'inscrire</Link>
 </span>
 </p>
 </div>
