@@ -28,7 +28,7 @@ const BienDetail: React.FC = () => {
       </Link>
 
       {/* Images */}
-      <div className="relative h-90px rounded-xl overflow-hidden mb-8">
+      <div className="relative h-96 rounded-xl overflow-hidden mb-8">
         <img
           src={bien.images[currentIndex]}
           alt={bien.titre}
@@ -76,31 +76,31 @@ const BienDetail: React.FC = () => {
           <h3 className="font-semibold text-lg">Caractéristiques</h3>
 
           <div className="flex items-center gap-2">
-            <FaBed /> {bien.chambre}
+            <FaBed /> chambre : {bien.chambre}
           </div>
 
           <div className="flex items-center gap-2">
-            <FaShower /> {bien.salleDeBain}
+            <FaShower /> salle de bain : {bien.salleDeBain}
           </div>
 
           <div className="flex items-center gap-2">
-            <FaSwimmingPool /> {bien.piscine}
+            <FaSwimmingPool /> piscine : {bien.piscine}
           </div>
 
           <div className="flex items-center gap-2">
-            <FaCouch /> {bien.salon}
+            <FaCouch /> salon : {bien.salon}
           </div>
 
           <div className="flex items-center gap-2">
-            <FaUtensils /> {bien.cuisine}
+            <FaUtensils /> cuisine : {bien.cuisine}
           </div>
 
           <div className="flex items-center gap-2">
-            <FaRulerCombined /> {bien.superficie} m²
+            <FaRulerCombined /> superficie : {bien.superficie} m²
           </div>
 
           <div className="flex items-center gap-2">
-            Type : {bien.typeBien}
+           <span className="font-medium">Type</span> : {bien.typeBien}
           </div>
         </div>
       </div>

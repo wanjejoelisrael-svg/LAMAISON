@@ -1,5 +1,6 @@
 import BienCard from '../components/BienCard'
 import { biensMock } from '../lib/mock';
+import Searchbar from '../components/Searchbar';
 // type Annonce = {
 //     id: number;
 //     titre: string;
@@ -14,7 +15,7 @@ const Bien: React.FC = () => {
     return (
         <section className="py-8 px-4 max-w-6xl mx-auto">
             <h2 className="text-2xl font-semibold mb-6 text-center"> Explorez nos Biens</h2>
-
+            <Searchbar />
             <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
                 {biensMock.map((a) => (
                     <BienCard

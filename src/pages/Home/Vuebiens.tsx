@@ -14,7 +14,11 @@ export default function Vuebiens() {
                         images={bien.images}
                         localisation={bien.localisation}
                         superficie={bien.superficie}
-                        nombrePieces={bien.nombrePieces}
+                        chambre={bien.chambre}
+                        salleDeBain={bien.salleDeBain}
+                        piscine={bien.piscine}
+                        salon={bien.salon}
+                        cuisine={bien.cuisine}
                         typeBien={bien.typeBien}
 
                     />
